@@ -150,6 +150,10 @@ void gauss() {
 
   /* Gaussian elimination */
   for (norm = 0; norm < N - 1; norm++) {
+    
+    #pragma omp parallel for num_threads(numThreads) \ 
+    default(shared) private(multiplier, row, col) 
+
     for (row = norm + 1; row < N; row++) {
       multiplier = A[row][norm] / A[norm][norm];
       for (col = norm; col < N; col++) {
